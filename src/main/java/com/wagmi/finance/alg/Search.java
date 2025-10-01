@@ -1,5 +1,4 @@
 package main.java.com.wagmi.finance.alg;
-
 /*
  TODO[Student]: Binary search by Transaction ID
  - Array must be sorted by `Transaction.getId()` ascending.
@@ -14,7 +13,29 @@ public final class Search {
     }
 
     public static int binarySearchById(Transaction[] sortedById, String id) {
-        // stub for binary search
+    
+        if(sortedById.length==0){
+            return -1;
+        }
+        int start=0;
+        int end=sortedById.length;
+
+        while(start<=end){
+            int mid=(start+end)/2;
+            if(sortedById[mid].equals(id))
+            {
+                return mid;
+            }
+            else if(sortedById[mid]>id)
+            {
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+
+        return -1;
         throw new UnsupportedOperationException("Not implemented");
     }
 }

@@ -21,13 +21,46 @@ public class PendingQueue {
     }
 
     public void enqueue(Transaction tx) {
-        // stub
-        throw new UnsupportedOperationException("Not implemented");
+        if(tx==null){
+            throw new IllegalArgumentException("Transaction cannot be null.");
+        }
+        if(isFull()){
+            throw new UnsupportedOperationException("Queue is full. Cannot enqueue new transaction.");
+        }
+        if(isEmpty()){
+            head=0;
+            tail=0;
+            data[head]=tx;
+            tail=(tail+1)%data.length;
+            size++;
+        }
+        else{
+            data[tail]=tx;
+            tail=(tail+1)%data.length;
+            size++;
+        }
+        
     }
 
     public Transaction dequeue() {
-        // stub
-        throw new UnsupportedOperationException("Not implemented");
+        if(isEmpty()){
+            throw new UnsupportedOperationException("Queue is empty. Cannot dequeue transaction.");
+        }
+        if(size==1){
+            Transaction temp=data[head];
+            data[head]=null;
+            head=0;
+            tail=0;
+            size=0;
+            return temp;
+        }
+        else{
+            Transaction temp=data[head];
+            data[head]=null;
+            head=(head+1)%data.length;
+            size--;
+            return temp;
+        }
     }
 
     public boolean isEmpty() {
